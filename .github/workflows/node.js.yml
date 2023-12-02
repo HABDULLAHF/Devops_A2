@@ -18,7 +18,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}
+          restore-keys: ${{ runner.os }}-node- 
+          
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -34,9 +41,4 @@ jobs:
       # Run any additional tests if they exist.
       - run: npm run test --if-present
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}
-          restore-keys: ${{ runner.os }}-node-
+
