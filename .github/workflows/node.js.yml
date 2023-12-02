@@ -17,6 +17,7 @@ jobs:
         node-version: [18.x]
 
     steps:
+      - run: npm install
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
